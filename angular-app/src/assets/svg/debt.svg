@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 17 17">
+  <g id="Grupo_3027" data-name="Grupo 3027" transform="translate(-1284.125 -658)">
+    <g id="Grupo_2993" data-name="Grupo 2993" transform="translate(-6.875 113.037)">
+      <circle id="Elipse_94" data-name="Elipse 94" cx="8.5" cy="8.5" r="8.5" transform="translate(1291 544.963)" fill="#f15657"/>
+      <path id="arrow-left" d="M9.037,2.905a.323.323,0,0,0-.323-.323H1.1L3.134.552A.323.323,0,1,0,2.677.095L.095,2.677a.323.323,0,0,0,0,.457L2.677,5.715a.323.323,0,1,0,.457-.457L1.1,3.228H8.714A.323.323,0,0,0,9.037,2.905Z" transform="translate(1296.576 558) rotate(-90)" fill="#fff" stroke="#fff" stroke-width="1" fill-rule="evenodd"/>
+    </g>
+  </g>
+</svg>

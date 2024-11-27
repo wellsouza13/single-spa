@@ -1,0 +1,16 @@
+<mat-form-field [appearance]="appearance" class="full-width">
+  <mat-label>{{ label }}</mat-label>
+  <input
+    matInput
+    [type]="type"
+    [readonly]="readOnly"
+    [maxLength]="maxLength"
+    [disabled]="disabled"
+    [required]="required"
+    [(ngModel)]="model"
+    (ngModelChange)="inputEvent($event)"
+    (blur)="blurEvent()"
+  />
+  <mat-icon *ngIf="icon" color="primary" matSuffix>{{ icon }}</mat-icon>
+  <mat-error>{{ constraintMessage }}</mat-error>
+</mat-form-field>

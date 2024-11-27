@@ -1,0 +1,155 @@
+<div class="login-wrapper">
+  <div class="login-align-middle">
+    <div class="veragi-v2"></div>
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Usuário</mat-label>
+      <input
+        matInput
+        [(ngModel)]="username"
+        (keydown.enter)="login()"
+        id="mat-login-username"
+        placeholder="Digite seu usuário"
+        required
+      />
+    </mat-form-field>
+    <div class="relative-container">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Senha</mat-label>
+        <input
+          matInput
+          [type]="showPassword ? 'text' : 'password'"
+          [(ngModel)]="password"
+          (keydown.enter)="login()"
+          id="mat-login-password"
+          placeholder="Digite sua senha"
+          required
+        />
+        <button
+          mat-icon-button
+          matSuffix
+          class="password-toggle-button"
+          (click)="toggleShowPassword()"
+          [attr.aria-label]="'Hide password'"
+          [attr.aria-pressed]="showPassword"
+        >
+          <mat-icon>{{ showPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
+      </mat-form-field>
+    </div>
+    <p class="login-forgot-password-text" (click)="gotoForgotPassword()">
+      Esqueceu sua senha?
+    </p>
+    <div class="button-container">
+      <mat-spinner
+        *ngIf="isLoading"
+        diameter="20"
+        class="spinner"
+      ></mat-spinner>
+      <lib-button
+        label="Acessar"
+        (clickAction)="login()"
+        [disabled]="isLoading"
+      ></lib-button>
+    </div>
+    <div *ngIf="loginError" class="login-error">
+      <span>Usu&aacute;rio ou senha inv&aacute;lidos</span>
+      <mat-icon (click)="loginError = false">close</mat-icon>
+    </div>
+    <div *ngIf="forgotError && !forgotMessage" class="login-error">
+      <span>Ocorreu um erro no processamento</span>
+      <mat-icon (click)="forgotError = false">close</mat-icon>
+    </div>
+    <div *ngIf="forgotError && forgotMessage" class="login-error">
+      <span>{{ forgotMessage }}</span>
+      <mat-icon (click)="forgotError = false">close</mat-icon>
+    </div>
+    <div *ngIf="forgotSuccess && forgotMessage" class="login-success">
+      <span>{{ forgotMessage }}</span>
+      <mat-icon (click)="forgotSuccess = false">done</mat-icon>
+    </div>
+    <div *ngIf="forgotSuccess && !forgotMessage" class="login-success">
+      <span>E-mail enviado com sucesso!</span>
+      <mat-icon (click)="forgotSuccess = false">done</mat-icon>
+    </div>
+  </div>
+  <div class="login-right">
+    <div class="login-right-wrapper">
+      <div class="login-red"></div>
+      <div class="login-image"></div>
+      <div class="login-orange"></div>
+      <div class="login-message">
+        <h1 class="text-white">
+          Bem-vindos à plataforma financeira da Accesstage
+        </h1>
+        <h3 class="text-white">
+          <p>
+            A Accesstage está inovando os seus serviços a cada dia para que, por
+            meio da informação, você tenha o poder de transformar incertezas em
+            oportunidades.
+          </p>
+        </h3>
+        <div>
+          <a href="http://instagram.com/_u/accesstagebr/" target="_blank">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <g transform="translate(0 -0.001)">
+                <path
+                  class="a"
+                  d="M12,5.838A6.158,6.158,0,1,0,18.162,12,6.157,6.157,0,0,0,12,5.838Zm0,10.155a4,4,0,1,1,4-4A4,4,0,0,1,12,15.993Z"
+                />
+                <path
+                  class="a"
+                  d="M16.948.076c-2.208-.1-7.677-.1-9.887,0A7.172,7.172,0,0,0,2.025,2.017C-.283,4.325.012,7.435.012,12c0,4.668-.26,7.706,2.013,9.979C4.342,24.291,7.5,23.988,12,23.988c4.624,0,6.22,0,7.855-.63,2.223-.863,3.9-2.85,4.065-6.419.1-2.209.1-7.677,0-9.887-.2-4.213-2.459-6.768-6.976-6.976Zm3.5,20.372c-1.513,1.513-3.612,1.378-8.468,1.378-5,0-7.005.074-8.468-1.393-1.685-1.677-1.38-4.37-1.38-8.453,0-5.525-.567-9.5,4.978-9.788,1.274-.045,1.649-.06,4.856-.06l.045.03c5.329,0,9.51-.558,9.761,4.986.057,1.265.07,1.645.07,4.847,0,4.942.093,6.959-1.394,8.453Z"
+                />
+                <circle
+                  class="a"
+                  cx="1.439"
+                  cy="1.439"
+                  r="1.439"
+                  transform="translate(16.967 4.156)"
+                />
+              </g>
+            </svg>
+          </a>
+          <a href="https://www.facebook.com/accesstage.br/" target="_blank">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path
+                class="a"
+                d="M3.516,24h7.828V15.469H8.531V12.656h2.813V9.141a3.52,3.52,0,0,1,3.516-3.516h3.516V8.438H15.562a1.408,1.408,0,0,0-1.406,1.406v2.813h4.092l-.469,2.812H14.156V24h6.328A3.52,3.52,0,0,0,24,20.484V3.516A3.52,3.52,0,0,0,20.484,0H3.516A3.52,3.52,0,0,0,0,3.516V20.484A3.52,3.52,0,0,0,3.516,24ZM1.406,3.516A2.112,2.112,0,0,1,3.516,1.406H20.484a2.112,2.112,0,0,1,2.109,2.109V20.484a2.112,2.112,0,0,1-2.109,2.109H15.562V16.875h3.408l.938-5.625H15.562V9.844h4.219V4.219H14.859A4.927,4.927,0,0,0,9.938,9.141V11.25H7.125v5.625H9.938v5.719H3.516a2.112,2.112,0,0,1-2.109-2.109Zm0,0"
+              />
+            </svg>
+          </a>
+          <a
+            href="https://www.linkedin.com/company/accesstagebr/"
+            target="_blank"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path
+                class="a"
+                d="M7.5,19.828H4.219V9.234H7.5ZM7.828,5.859A1.922,1.922,0,1,0,5.907,7.781,1.922,1.922,0,0,0,7.828,5.859ZM19.782,14c0-2.844-.6-4.953-3.923-4.953a3.405,3.405,0,0,0-3.105,1.629h0V9.234H9.563V19.828H12.75v-5.26c0-1.378.351-2.712,2.058-2.712,1.684,0,1.739,1.575,1.739,2.8v5.172h3.234ZM24,21.188V2.813A2.816,2.816,0,0,0,21.188,0H2.813A2.816,2.816,0,0,0,0,2.813V21.188A2.816,2.816,0,0,0,2.813,24H21.188A2.816,2.816,0,0,0,24,21.188ZM21.188,1.875a.939.939,0,0,1,.938.938V21.188a.939.939,0,0,1-.937.938H2.813a.939.939,0,0,1-.937-.937V2.813a.939.939,0,0,1,.938-.937Zm0,0"
+                transform="translate(0)"
+              />
+            </svg>
+          </a>
+        </div>
+      </div>
+      <div class="login-plat-accesstage accesstage">
+        <span>Uma Plataforma</span>
+      </div>
+    </div>
+  </div>
+</div>

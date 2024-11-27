@@ -1,0 +1,133 @@
+<div [class]="'buttom-wrapper ' + customClass" [ngSwitch]="buttonType">
+  <button
+    *ngSwitchCase="'button'"
+    mat-button
+    [color]="color"
+    #btnRef="matButton"
+    (click)="onClick($event)"
+    [disabled]="disabled"
+  >
+    <span>{{ label }}</span>
+    <mat-icon *ngIf="icon">{{ icon }}</mat-icon>
+  </button>
+  <button
+    *ngSwitchCase="'raised'"
+    mat-raised-button
+    [color]="color"
+    #btnRef="matButton"
+    (click)="onClick($event)"
+    [disabled]="disabled"
+  >
+    <span>{{ label }}</span>
+    <mat-icon *ngIf="icon">{{ icon }}</mat-icon>
+  </button>
+  <button
+    *ngSwitchCase="'flat'"
+    mat-flat-button
+    [color]="color"
+    #btnRef="matButton"
+    (click)="onClick($event)"
+    [disabled]="disabled"
+  >
+    <span>{{ label }}</span>
+    <mat-icon *ngIf="icon">{{ icon }}</mat-icon>
+  </button>
+  <button
+    style="border: 1px solid #F5844C !important;"
+    *ngSwitchCase="'stroked'"
+    mat-stroked-button
+    [color]="color"
+    #btnRef="matButton"
+    (click)="onClick($event)"
+    [disabled]="disabled"
+  >
+    <span>{{ label }}</span>
+    <mat-icon *ngIf="icon">{{ icon }}</mat-icon>
+  </button>
+  <button
+    *ngSwitchCase="'icon'"
+    mat-icon-button
+    [color]="color"
+    #btnRef="matButton"
+    (click)="onClick($event)"
+    [disabled]="disabled"
+  >
+    <span>{{ label }}</span>
+    <mat-icon *ngIf="icon">{{ icon }}</mat-icon>
+  </button>
+  <button
+    *ngSwitchCase="'fab'"
+    mat-fab
+    [color]="color"
+    #btnRef="matButton"
+    (click)="onClick($event)"
+    [disabled]="disabled"
+  >
+    <span>{{ label }}</span>
+    <mat-icon *ngIf="icon">{{ icon }}</mat-icon>
+  </button>
+  <button
+    *ngSwitchCase="'mini-fab'"
+    mat-mini-fab
+    [color]="color"
+    #btnRef="matButton"
+    (click)="onClick($event)"
+    [disabled]="disabled"
+  >
+    <span>{{ label }}</span>
+    <mat-icon *ngIf="icon">{{ icon }}</mat-icon>
+  </button>
+  <button
+    *ngSwitchCase="'plus-button'"
+    (click)="onClick($event)"
+    class="addbutton"
+  >
+    <i class="fas fa-plus"></i>
+    <span class="ml-4 button-text">{{ label }}</span>
+  </button>
+  <span
+    *ngSwitchCase="'csv-button'"
+    (click)="onClick($event)"
+    class="mat-raised-button csvbutton"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+      width="53"
+      height="48"
+      viewBox="0 0 53 48"
+    >
+      <path
+        id="Caminho_834"
+        data-name="Caminho 834"
+        d="M49.868,7.98h-.536V5.4a.385.385,0,0,0,0-.049.429.429,0,0,0-.1-.283L44.922.15l0,0a.425.425,0,0,0-.087-.073L44.8.056A.458.458,0,0,0,44.717.02L44.693.012a.44.44,0,0,0-.1-.012H34.021a.876.876,0,0,0-.875.875V7.98h-.536A1.25,1.25,0,0,0,31.36,9.23v6.5a1.251,1.251,0,0,0,1.251,1.251h.536v4.452a.876.876,0,0,0,.875.875H48.457a.876.876,0,0,0,.875-.875V16.984h.536a1.251,1.251,0,0,0,1.25-1.25v-6.5A1.25,1.25,0,0,0,49.868,7.98ZM34.021.875H44.155V5.351a.438.438,0,0,0,.437.437h3.865V7.98H34.021Zm6.586,11.869c-1.086-.378-1.793-.979-1.793-1.928,0-1.115.93-1.968,2.471-1.968a3.994,3.994,0,0,1,1.667.33l-.329,1.192a3.1,3.1,0,0,0-1.367-.311c-.64,0-.95.291-.95.63,0,.417.368.6,1.212.921,1.153.426,1.7,1.027,1.7,1.948,0,1.095-.843,2.026-2.636,2.026a4.28,4.28,0,0,1-1.851-.4l.3-1.221a3.764,3.764,0,0,0,1.638.407c.678,0,1.037-.281,1.037-.708C41.7,13.257,41.392,13.024,40.607,12.744Zm-7.7-.427a3.33,3.33,0,0,1,3.567-3.47,3.851,3.851,0,0,1,1.609.291l-.3,1.173a3.2,3.2,0,0,0-1.241-.242,1.964,1.964,0,0,0-2.084,2.161,1.951,1.951,0,0,0,2.094,2.132,3.688,3.688,0,0,0,1.231-.213l.223,1.153a4.2,4.2,0,0,1-1.677.282A3.107,3.107,0,0,1,32.911,12.317ZM48.457,21.2H34.021V16.984H48.457Zm-.977-5.712H45.755L43.661,8.954H45.28l.795,2.763c.223.775.426,1.521.582,2.336h.029c.165-.785.368-1.561.591-2.307l.834-2.791h1.571Z"
+        transform="translate(-31.36)"
+        fill="#f5844c"
+      />
+    </svg>
+  </span>
+  <span
+    *ngSwitchCase="'add-button'"
+    (click)="onClick($event)"
+    class="mat-raised-button csvbutton"
+    style="width: 48px !important"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="25"
+      viewBox="0 0 512 512"
+      height="25"
+      fill="#F5844C"
+    >
+      <path
+        d="m256 512c-141.164062 0-256-114.835938-256-256s114.835938-256 256-256 256 114.835938 256 256-114.835938 256-256 256zm0-480c-123.519531 0-224 100.480469-224 224s100.480469 224 224 224 224-100.480469 224-224-100.480469-224-224-224zm0 0"
+      />
+      <path
+        d="m368 272h-224c-8.832031 0-16-7.167969-16-16s7.167969-16 16-16h224c8.832031 0 16 7.167969 16 16s-7.167969 16-16 16zm0 0"
+      />
+      <path
+        d="m256 384c-8.832031 0-16-7.167969-16-16v-224c0-8.832031 7.167969-16 16-16s16 7.167969 16 16v224c0 8.832031-7.167969 16-16 16zm0 0"
+      />
+    </svg>
+  </span>
+</div>

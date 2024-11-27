@@ -1,0 +1,41 @@
+<style>
+  .slideshow-container {
+    max-width: 1000px;
+    position: relative;
+    margin: auto;
+  }
+  .prev, .next {
+    cursor: pointer;
+    position: absolute;
+    top: 11%;
+    width: auto;
+    padding: 16px;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    
+  }
+  .next {
+    right: 0;
+    border-radius: 4px 0 0 4px;
+  }
+  .width100{
+      max-width: 100%;
+      height: auto;
+  }
+</style>
+<div class="col-lg d-none d-sm-block">
+  <div class="slideshow-container">
+      <a class="mySlides" href="https://blog.accesstage.com.br/plataforma-financeira-multibancos-e-multiadquirentes">
+          <img src="assets/blog/001.jpg" class="width100">
+      </a>
+      <a class="mySlides" style="display: none;"  href="https://blog.accesstage.com.br/accesstage-novo-posicionamento-de-marca">
+          <img src="assets/blog/002.jpg" class="width100">
+      </a>
+      <a class="mySlides" style="display: none;"  href="https://blog.accesstage.com.br/mercado-financeiro-novas-tecnologias-e-tendencias">
+          <img src="assets/blog/003.jpg" class="width100">
+      </a>
+      <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+      <a class="next" onclick="plusSlides(1)">&#10095;</a>
+  </div>
+</div>

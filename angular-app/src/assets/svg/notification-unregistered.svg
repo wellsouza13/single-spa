@@ -1,0 +1,17 @@
+<svg id="_1" data-name="1" xmlns="http://www.w3.org/2000/svg" width="21.359" height="18.31" viewBox="0 0 21.359 18.31">
+  <g id="email">
+    <g id="Grupo_3035" data-name="Grupo 3035" transform="translate(0 0)">
+      <path id="Caminho_874" data-name="Caminho 874" d="M17.426,61H1.679A1.682,1.682,0,0,0,0,62.679V73.873a1.682,1.682,0,0,0,1.679,1.679H17.426A1.682,1.682,0,0,0,19.1,73.873V62.679A1.682,1.682,0,0,0,17.426,61Zm-.232,1.119L9.588,69.725,1.916,62.119ZM1.119,73.642V62.906L6.511,68.25Zm.792.792,5.394-5.394L9.2,70.913a.56.56,0,0,0,.79,0l1.843-1.843,5.365,5.365Zm16.074-.792L12.62,68.276l5.365-5.365Z" transform="translate(0 -61)" fill="#f3c02e"/>
+    </g>
+  </g>
+  <g id="Grupo_3037" data-name="Grupo 3037" transform="translate(9.942 6.893)">
+    <circle id="Elipse_96" data-name="Elipse 96" cx="5.709" cy="5.709" r="5.709" transform="translate(0 0)" fill="#fff"/>
+    <g id="Grupo_3036" data-name="Grupo 3036" transform="translate(1.269 1.269)">
+      <g id="Grupo_3030" data-name="Grupo 3030" transform="translate(0 0)">
+        <g id="Grupo_3029" data-name="Grupo 3029">
+          <path id="Caminho_873" data-name="Caminho 873" d="M6.646,2a4.646,4.646,0,1,0,4.646,4.646A4.647,4.647,0,0,0,6.646,2Zm0,8.362A3.715,3.715,0,0,1,2.929,6.646a3.671,3.671,0,0,1,.785-2.276L8.922,9.577A3.671,3.671,0,0,1,6.646,10.362Zm2.931-1.44L4.369,3.714a3.671,3.671,0,0,1,2.276-.785,3.715,3.715,0,0,1,3.716,3.716A3.671,3.671,0,0,1,9.577,8.922Z" transform="translate(-2 -2)" fill="#f3c02e"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

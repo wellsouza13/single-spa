@@ -1,0 +1,18 @@
+::ng-deep .mat-raised-button {
+  font-weight: initial;
+  border-radius: 8px;
+}
+
+::ng-deep .btn-back .mat-raised-button.mat-primary {
+  border: 1px solid #f5844c;
+  color: #f5844c;
+  background: transparent;
+}
+
+::ng-deep .mat-raised-button.mat-primary[disabled] {
+  color: #cbcbcb;
+}
+
+::ng-deep .btn-back .mat-raised-button:not([class*="mat-elevation-z"]) {
+  box-shadow: none;
+}

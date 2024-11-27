@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="48.37" height="42" viewBox="0 0 48.37 42">
+  <g id="Grupo_3022" data-name="Grupo 3022" transform="translate(-709 -569)">
+    <g id="Componente_71_1" data-name="Componente 71 – 1" transform="translate(709 569)">
+      <g id="whatsapp">
+        <rect id="Retângulo_2593" data-name="Retângulo 2593" width="48.37" height="42" rx="4" transform="translate(0)" fill="#f5844c"/>
+      </g>
+    </g>
+    <path id="envelope" d="M0,5.25A3.25,3.25,0,0,1,3.25,2h19.5A3.25,3.25,0,0,1,26,5.25v13a3.25,3.25,0,0,1-3.25,3.25H3.25A3.25,3.25,0,0,1,0,18.25ZM3.25,3.625A1.625,1.625,0,0,0,1.625,5.25V5.6L13,12.428,24.375,5.6V5.25A1.625,1.625,0,0,0,22.75,3.625ZM24.375,7.5l-7.732,4.639,7.732,4.674V7.5ZM24.32,18.674l-9.254-5.592L13,14.322l-2.067-1.24L1.68,18.673a1.625,1.625,0,0,0,1.57,1.2h19.5A1.625,1.625,0,0,0,24.32,18.674ZM1.625,16.81l7.732-4.674L1.625,7.5v9.311Z" transform="translate(720.185 578.25)" fill="#fff"/>
+  </g>
+</svg>
