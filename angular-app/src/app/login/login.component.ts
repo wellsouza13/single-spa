@@ -6,13 +6,14 @@ import { AuthService } from '../lib/services/auth-service.service';
 import { CockpitService } from '../lib/services/cockpit.service';
 import { Identity, loginResult } from '../lib/services/auth-objects';
 import { MatDialog } from '@angular/material/dialog';
+import { ReCaptchaV3Service } from 'ng-recaptcha';
 import { BaseViewComponent } from '../components/base-view/base-view.component';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   providers: [ConstraintService],
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent extends BaseViewComponent {
   username = '';
@@ -26,7 +27,6 @@ export class LoginComponent extends BaseViewComponent {
   plataformAccountsMfa = [];
   onboarding: string;
 
-
   constructor(
     private auth: AuthService,
     private router: Router,
@@ -34,7 +34,8 @@ export class LoginComponent extends BaseViewComponent {
     private accountService: AccountService,
     private cockpit: CockpitService,
     private authService: AuthService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private recaptchaV3Service: ReCaptchaV3Service
   ) {
     super();
     if (this.auth.isFromForgotPassword()) {
@@ -48,12 +49,20 @@ export class LoginComponent extends BaseViewComponent {
     this.loginError = false;
     this.isLoading = true;
     this.clearLogin();
-    console.log('username', this.username)
     localStorage.setItem('username', this.username);
-    this.auth.login(this.username, this.password).subscribe(
-      (result) => this.gotoOverview(result),
-      () => this.gotoOverview({ logged: false, mfa: false, usertoken: null }),
-    );
+    this.recaptchaV3Service.execute('login').subscribe({
+      next: (token) => {
+        console.log('token', token);
+        this.auth.login(this.username, this.password, token).subscribe(
+          (result) => this.gotoOverview(result),
+          () =>
+            this.gotoOverview({ logged: false, mfa: false, usertoken: null })
+        );
+      },
+      error: (err) => {
+        console.error('reCAPTCHA error:', err);
+      },
+    });
   }
 
   gotoOverview(login: loginResult) {
@@ -70,12 +79,11 @@ export class LoginComponent extends BaseViewComponent {
     const temporaryToken = login.usertoken.TEMPORARY_TOKEN;
     const mfa_authenticated = login.usertoken.MFA_AUTHENTICATED;
     if (temporaryToken && mfa_authenticated) {
-
-      console.warn('mfa')
+      console.warn('mfa');
     }
 
     if (temporaryToken && !mfa_authenticated) {
-      console.warn('mfa_authenticated')
+      console.warn('mfa_authenticated');
     }
 
     const user = login.usertoken.identity ?? login.identity;
@@ -165,7 +173,6 @@ export class LoginComponent extends BaseViewComponent {
     this.router.navigate(['boas-vindas'], { relativeTo: this.route.root });
   }
 
-
   public async goToHome(): Promise<void> {
     const identity: Identity = this.authService.userInfo;
     await this.authService.updateUserDetails(identity);
@@ -185,7 +192,7 @@ export class LoginComponent extends BaseViewComponent {
     return this.accountService
       .updateOrganizationsToken(
         identity.email,
-        identity.platformAccountSelected.organizations,
+        identity.platformAccountSelected.organizations
       )
       .toPromise();
   }

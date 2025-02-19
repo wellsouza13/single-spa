@@ -21,6 +21,7 @@ import { ButtonComponent } from './components/button/button.component';
 import { ConfigService } from './lib/services/config.service';
 import { MatDialogModule } from '@angular/material/dialog';
 import { environment } from 'src/environments/environment';
+import { RECAPTCHA_V3_SITE_KEY, RecaptchaV3Module } from 'ng-recaptcha';
 
 @NgModule({
   declarations: [
@@ -42,9 +43,14 @@ import { environment } from 'src/environments/environment';
     MatProgressSpinnerModule,
     MatFormFieldModule,
     MatDialogModule,
+    RecaptchaV3Module,
   ],
   providers: [
     { provide: APP_BASE_HREF, useValue: '/angular' },
+    {
+      provide: RECAPTCHA_V3_SITE_KEY,
+      useValue: environment.recaptchaSiteKey,
+    },
     ConfigService,
     {
       provide: 'Configs',

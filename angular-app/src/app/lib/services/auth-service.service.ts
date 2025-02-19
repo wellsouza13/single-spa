@@ -1,4 +1,4 @@
-import * as moment_ from "moment";
+import * as moment_ from 'moment';
 
 import {
   AccessToken,
@@ -7,16 +7,16 @@ import {
   PlatformAccount,
   UserToken,
   loginResult,
-} from "./auth-objects";
-import { BehaviorSubject, Observable, Subject, of } from "rxjs";
-import { Data, Router } from "@angular/router";
-import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
+} from './auth-objects';
+import { BehaviorSubject, Observable, Subject, of } from 'rxjs';
+import { Data, Router } from '@angular/router';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
-import { Injectable } from "@angular/core";
-import { map } from "rxjs/operators";
-import { StorageUserDetailsService } from "../storage/storage-user-details/storage-user-details.service";
-import { ConfigService } from "./config.service";
-import { MatDialog } from "@angular/material/dialog";
+import { Injectable } from '@angular/core';
+import { map } from 'rxjs/operators';
+import { StorageUserDetailsService } from '../storage/storage-user-details/storage-user-details.service';
+import { ConfigService } from './config.service';
+import { MatDialog } from '@angular/material/dialog';
 
 const moment = moment_;
 
@@ -26,16 +26,16 @@ const moment = moment_;
 export class AuthService {
   private options: {
     headers?: HttpHeaders;
-    observe?: "body";
+    observe?: 'body';
     params?: HttpParams;
     reportProgress?: boolean;
     responseType?: any;
     withCredentials?: boolean;
   } = {};
 
-  private ACCESS_TOKEN_KEY = "request_config";
-  private USER_TOKEN_KEY = "_s";
-  private REFRESH_AT_KEY = "next_request";
+  private ACCESS_TOKEN_KEY = 'request_config';
+  private USER_TOKEN_KEY = '_s';
+  private REFRESH_AT_KEY = 'next_request';
 
   private accessToken: AccessToken;
   private userDetail: Identity;
@@ -67,9 +67,9 @@ export class AuthService {
     private dialog: MatDialog
   ) {
     this.options.headers = new HttpHeaders()
-      .set("no-error", "true")
-      .set("Content-Type", "application/x-www-form-urlencoded");
-    this.options.responseType = "json";
+      .set('no-error', 'true')
+      .set('Content-Type', 'application/x-www-form-urlencoded');
+    this.options.responseType = 'json';
     this.retrieve();
   }
 
@@ -85,10 +85,20 @@ export class AuthService {
     return of(this.accessToken !== undefined);
   }
 
-  public login(username: string, password: string): Observable<loginResult> {
+  public login(
+    username: string,
+    password: string,
+    recaptchaToken: string
+  ): Observable<loginResult> {
     const urlEncoded = new HttpParams()
-      .append("user", username)
-      .append("password", password);
+      .append('user', username)
+      .append('password', password);
+
+    this.options.headers = new HttpHeaders()
+      .set('no-error', 'true')
+      .set('Content-Type', 'application/x-www-form-urlencoded')
+      .set('recaptcha', recaptchaToken ?? '-');
+
     const request = this.http
       .post<UserToken>(
         this.configs.config.publicUrl + this.configs.config.tokenUrl,
@@ -96,8 +106,8 @@ export class AuthService {
         this.options
       )
       .pipe(
-        map((userToken) => {
-          if (userToken.identity.mfaEnabled) {
+        map((userToken: any) => {
+          if (userToken.TEMPORARY_TOKEN) {
             return {
               usertoken: userToken,
               logged: true,
@@ -165,7 +175,7 @@ export class AuthService {
     }
     this.refreshTimer = setTimeout(
       () => this.refreshToken(),
-      expireMoment.diff(now, "milliseconds")
+      expireMoment.diff(now, 'milliseconds')
     );
 
     this.updateUserDetails(this.userDetail);
@@ -173,7 +183,7 @@ export class AuthService {
 
   public refreshToken(): void {
     const updatedOptions = {
-      headers: this.options.headers.set("Content-Type", "application/json"),
+      headers: this.options.headers.set('Content-Type', 'application/json'),
       responseType: this.options.responseType,
     };
 
@@ -193,16 +203,16 @@ export class AuthService {
   public updateIdentity() {
     let updatedOptions = this.options;
     updatedOptions = {
-      headers: this.options.headers.set("Content-Type", "application/json"),
+      headers: this.options.headers.set('Content-Type', 'application/json'),
       responseType: this.options.responseType,
       params: new HttpParams().append(
-        "accessToken",
+        'accessToken',
         this.accessToken.access_token
       ),
     };
     this.http
       .post<Identity>(
-        this.getBackendUrl() + "/atualiza-identidade",
+        this.getBackendUrl() + '/atualiza-identidade',
         this.userDetail.platformAccountSelected.organizations || [],
         updatedOptions
       )
@@ -220,7 +230,7 @@ export class AuthService {
 
   public logout() {
     const urlEncoded = new HttpParams().append(
-      "token",
+      'token',
       this.accessToken.access_token
     );
     this.http
@@ -245,8 +255,8 @@ export class AuthService {
     this.accessToken = token.token;
     const now = moment();
     const timeout = this.calculateTimeout(this.accessToken.expires_in);
-    const expiredDate = now.add(timeout, "seconds");
-    sessionStorage.setItem(this.REFRESH_AT_KEY, "" + expiredDate.valueOf());
+    const expiredDate = now.add(timeout, 'seconds');
+    sessionStorage.setItem(this.REFRESH_AT_KEY, '' + expiredDate.valueOf());
     sessionStorage.setItem(this.USER_TOKEN_KEY, JSON.stringify(token));
     sessionStorage.setItem(this.ACCESS_TOKEN_KEY, this.accessToken.id_token);
     this.refreshAuthentication();
@@ -322,11 +332,11 @@ export class AuthService {
   public validateAccess(roles: Data): boolean {
     const authority = roles.authority;
 
-    return authority === "none"
+    return authority === 'none'
       ? true
       : !authority
       ? false
-      : typeof authority === "string"
+      : typeof authority === 'string'
       ? this.hasRole(authority)
       : Array.isArray(authority)
       ? this.hasRoles(authority)
