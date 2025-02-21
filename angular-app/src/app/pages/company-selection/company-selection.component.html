@@ -1,0 +1,32 @@
+<div class="screen">
+  <div class="box">
+    <h1 class="title">Selecione a conta</h1>
+    <div class="account-list">
+      <div
+        *ngFor="let account of accounts"
+        class="account-item"
+        (mouseenter)="onHover(account, true)"
+        (mouseleave)="onHover(account, false)"
+        (click)="onSelect(account)"
+      >
+        <div class="account-icon-background">
+          <mat-icon
+            aria-hidden="false"
+            [ngClass]="{ hovered: account.hovered }"
+          >
+            <ng-container *ngIf="!account.hovered; else arrowIcon">
+              <span class="apartment-icon">apartment</span>
+            </ng-container>
+            <ng-template #arrowIcon>
+              <span class="material-icons arrow-icon">chevron_right</span>
+            </ng-template>
+          </mat-icon>
+        </div>
+        <div class="account-informations">
+          {{ account.name }}
+          <span class="veragi-id"> ID: {{ account.code }} </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

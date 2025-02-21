@@ -16,8 +16,8 @@ import { BaseViewComponent } from '../components/base-view/base-view.component';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent extends BaseViewComponent {
-  username = '';
-  password = '';
+  username = 'vanessa.rodrigues@trabalhandocomakaspper.com.br';
+  password = 'Veragi@123';
   isLoading = false;
   loginError = false;
   forgotError = false;
@@ -48,11 +48,8 @@ export class LoginComponent extends BaseViewComponent {
   login() {
     this.loginError = false;
     this.isLoading = true;
-    this.clearLogin();
-    localStorage.setItem('username', this.username);
     this.recaptchaV3Service.execute('login').subscribe({
       next: (token) => {
-        console.log('token', token);
         this.auth.login(this.username, this.password, token).subscribe(
           (result) => this.gotoOverview(result),
           () =>
@@ -66,6 +63,7 @@ export class LoginComponent extends BaseViewComponent {
   }
 
   gotoOverview(login: loginResult) {
+    console.log('caiu', login);
     if (!login.logged) {
       this.isLoading = false;
       this.loginError = true;
@@ -73,39 +71,118 @@ export class LoginComponent extends BaseViewComponent {
     }
 
     if (!login.mfa) {
+      // this.saveHotJar(login.usertoken.identity);
+
       this.proceedToLogin();
       return;
     }
+
     const temporaryToken = login.usertoken.TEMPORARY_TOKEN;
+    const email_required = login.usertoken.EMAIL_REQUIRED;
     const mfa_authenticated = login.usertoken.MFA_AUTHENTICATED;
     if (temporaryToken && mfa_authenticated) {
-      console.warn('mfa');
+      // const d = this.dialog.open(MfaVerifyDialogComponent, {
+      //   data: {
+      //     user: {
+      //       temporaryToken,
+      //     },
+      //   },
+      // });
+      let d;
+      const dialogTimeout = setTimeout(() => {
+        d.close();
+        this.isLoading = false;
+      }, 300000);
+
+      d.afterClosed().subscribe((res: any) => {
+        clearTimeout(dialogTimeout);
+        if (res) {
+          this.gotoOverview({
+            usertoken: res.verifyToken,
+            logged: true,
+            mfa: false,
+          });
+          this.auth.loginWithMfa(res.verifyToken);
+          this.plataformAccountsMfa =
+            res.verifyToken.identity.platformAccounts.verifyToken;
+
+          // this.saveHotJar(res.verifyToken.identity);
+          this.proceedToLogin();
+        }
+      });
+      return;
     }
 
-    if (temporaryToken && !mfa_authenticated) {
-      console.warn('mfa_authenticated');
+    if (temporaryToken && !mfa_authenticated && !email_required) {
+      // const d = this.dialog.open(MfaSetupDialogComponent, {
+      //   data: {
+      //     temporaryToken,
+      //   },
+      // });
+      let d: any;
+
+      const dialogTimeout = setTimeout(() => {
+        d.close();
+        this.isLoading = false;
+      }, 300000);
+
+      d.afterClosed().subscribe((res) => {
+        clearTimeout(dialogTimeout);
+        if (res) {
+          this.gotoOverview({
+            usertoken: res.verifyToken,
+            logged: true,
+            mfa: false,
+          });
+          this.auth.loginWithMfa(res.verifyToken);
+          // this.saveHotJar(res.verifyToken.identity);
+          this.plataformAccountsMfa =
+            res.verifyToken.identity.platformAccounts.verifyToken;
+          this.proceedToLogin();
+        }
+      });
+      return;
     }
 
-    const user = login.usertoken.identity ?? login.identity;
-    const userId = user.id;
-    const username = user.name;
-    const email = user.email;
-    const accs = user.platformAccounts;
-    let orgs = [];
-    accs
-      .map((acc) => acc.account_organizations)
-      .forEach((org) => (orgs = orgs.concat(org)));
-    const organizationsName = orgs.map((o) => o.name).join(';');
-    const organizationsIdentification = orgs
-      .map((o) => o.identification)
-      .join(';');
-    const w = window as any;
-    w.hj('identify', userId, {
-      username: username,
-      email: email,
-      organizationsName: organizationsName,
-      organizationsIdentification: organizationsIdentification,
-    });
+    if (email_required) {
+      // const d = this.dialog.open(EmailRequiredDialogComponent, {
+      //   width: '596px',
+      //   height: '431px',
+      //   data: {
+      //     user: {
+      //       temporaryToken,
+      //     },
+      //   },
+      // });
+
+      let d;
+
+      const dialogTimeout = setTimeout(() => {
+        d.close();
+        this.isLoading = false;
+      }, 300000);
+
+      d.afterClosed().subscribe((res: any) => {
+        clearTimeout(dialogTimeout);
+        this.isLoading = false;
+        if (res) {
+          this.gotoOverview({
+            usertoken: res,
+            logged: true,
+            mfa:
+              res?.MFA_AUTHENTICATED === true
+                ? true
+                : res?.MFA_AUTHENTICATED === false
+                ? true
+                : false,
+          });
+          this.auth.loginWithMfa(res);
+          // this.saveHotJar(res.identity);
+          this.proceedToLogin();
+        }
+      });
+      return;
+    }
   }
 
   proceedToLogin() {
@@ -166,7 +243,8 @@ export class LoginComponent extends BaseViewComponent {
   }
 
   private navigateToCompanyList() {
-    this.router.navigate(['/company/company-list']);
+    console.log('🚀 Navegando para company/company-list...');
+    this.router.navigate(['/company/company-list']); // 🔹 Adicione a barra inicial `/`
   }
 
   private navigateToWelcome() {
@@ -213,5 +291,29 @@ export class LoginComponent extends BaseViewComponent {
     if (this.authService.isAuthenticated()) {
       this.authService.logout();
     }
+  }
+
+  saveHotJar(data: any) {
+    const user = data;
+    const userId = user.id;
+    const username = user.name;
+    const email = user.email;
+    const accs = user.platformAccounts;
+    let orgs = [];
+    accs
+      .map((acc) => acc.account_organizations)
+      .forEach((org) => (orgs = orgs.concat(org)));
+    const organizationsName = orgs.map((o) => o.name).join(';');
+    const organizationsIdentification = orgs
+      .map((o) => o.identification)
+      .join(';');
+    const w = window as any;
+
+    w.hj('identify', userId, {
+      username: username,
+      email: email,
+      organizationsName: organizationsName,
+      organizationsIdentification: organizationsIdentification,
+    });
   }
 }

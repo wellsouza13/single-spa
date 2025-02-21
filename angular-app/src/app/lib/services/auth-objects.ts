@@ -2,7 +2,7 @@ export interface loginResult {
   usertoken: UserToken;
   logged: boolean;
   mfa: boolean;
-  [key: string]: any
+  [key: string]: any;
 }
 
 export interface UserToken {
@@ -10,6 +10,7 @@ export interface UserToken {
   identity: Identity;
   TEMPORARY_TOKEN: string;
   MFA_AUTHENTICATED: boolean;
+  [key: string]: any;
 }
 
 export class AccessToken {
@@ -70,10 +71,10 @@ export class AccountOrganization {
   lastModifiedBy?: any;
   lastModifiedDate?: any;
   id: number;
-  identification: string = ''
-  name: string = ''
-  selectedName?:string = ''
-  checked: boolean = false
+  identification: string = '';
+  name: string = '';
+  selectedName?: string = '';
+  checked: boolean = false;
 }
 
 export class UseTerms {
@@ -82,5 +83,3 @@ export class UseTerms {
   idTerm: number;
   accept: boolean;
 }
-
-

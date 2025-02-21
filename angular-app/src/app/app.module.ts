@@ -22,6 +22,7 @@ import { ConfigService } from './lib/services/config.service';
 import { MatDialogModule } from '@angular/material/dialog';
 import { environment } from 'src/environments/environment';
 import { RECAPTCHA_V3_SITE_KEY, RecaptchaV3Module } from 'ng-recaptcha';
+import { CompanySelectionComponent } from './pages/company-selection/company-selection.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { RECAPTCHA_V3_SITE_KEY, RecaptchaV3Module } from 'ng-recaptcha';
     LoginComponent,
     InputTextComponent,
     ButtonComponent,
+    CompanySelectionComponent,
   ],
   imports: [
     BrowserModule,
